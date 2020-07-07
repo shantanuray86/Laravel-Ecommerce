@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Order;
 use Session;
 use App\Cart;
 use Stripe\Charge;
 use Stripe\Stripe;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -73,19 +75,41 @@ class ProductController extends Controller
     // 
     public function postcheckout(Request $request)
     {
+        //$oldCart = Session::get('cart');
+        //print_r($oldCart->items); die();
         //dd($request);
+        $order_id = time();
         try{
+
             Stripe::setApiKey('sk_test_9rug65UKvOF1rmRUQLJ7uk9g00IaLuAz02');
             $charge = Charge::create([
-                'amount'=> '1000',
+                'amount'=>'1000',
                 'currency'=>'INR',
                 'source'=>$request->stripeToken,
-                'description'=>'Order',
+                'description'=>$order_id,
                 'receipt_email'=>'example@example.com'
-
             ]);
+
+            $oldCart = Session::get('cart');
+            $cart = new Cart($oldCart);
+            $products = $cart->items;
+            $cart_total_price =$cart->totalPrice;
+
+            foreach($products as $product)
+            {
+                $order = new Order();
+                $order->user_id      =Auth::id(); 
+                $order->product_id   =$product['item']['id'];
+                $order->order_id     =$order_id;
+                $order->product_qty  =$product['qty'];
+                $order->product_price=$product['price'];
+                $order->save();
+            }
+
+
         }catch(Exception $e){
-            dd($e);
+            //dd($e);
+            return redirect('checkout')->with('status',$e);
         }
     }
 }

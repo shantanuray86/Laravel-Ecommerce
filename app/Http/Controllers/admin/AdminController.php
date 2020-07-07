@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Order;
 use URL;
 
 class AdminController extends Controller
@@ -116,4 +117,11 @@ class AdminController extends Controller
             return redirect('/admin/products')->with('status','Product Could Not Be Deleted Successfully');
         }
     } 
+
+    // Display All Orders
+    public function allOrders()
+    {
+        $orders = Order::groupBy('order_id')->get();;
+        return view('admin\orders',compact('orders'));
+    }
 }

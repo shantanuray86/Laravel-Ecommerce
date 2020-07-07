@@ -32,12 +32,15 @@ Route::any('/getReduceByOne/{id}', 'ProductController@getReduceByOne')->name('ge
 
 // Remove an item from the cart.
 Route::any('/getRemoveItem/{id}', 'ProductController@getRemoveItem')->name('getRemoveItem');
+// Only Logged in users can enter 
+Route::group(['middleware' => ['auth']], function () {
+    // Remove an item from the cart.
+	Route::get('/checkout', 'ProductController@checkout')->name('checkout');
 
-// Remove an item from the cart.
-Route::get('/checkout', 'ProductController@checkout')->name('checkout');
+	// Remove an item from the cart.
+	Route::post('/postcheckout', 'ProductController@postcheckout')->name('postcheckout');
+});
 
-// Remove an item from the cart.
-Route::post('/postcheckout', 'ProductController@postcheckout')->name('postcheckout');
 
 
 // Admin
@@ -67,6 +70,9 @@ Route::post('/admin/product/update/{id}', 'admin\AdminController@updateproduct')
 
 // Delete a particular product
 Route::get('/admin/product/delete/{id}', 'admin\AdminController@deleteproduct')->name('deleteproduct');
+
+// Display All Orders
+Route::get('/admin/allOrders', 'admin\AdminController@allOrders')->name('allOrders');
 
 
 
