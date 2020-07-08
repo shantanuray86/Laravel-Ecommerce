@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Order;
+use App\Order_Product;
 use Session;
 use App\Cart;
 use Stripe\Charge;
@@ -105,6 +106,16 @@ class ProductController extends Controller
                 $order->product_price=$product['price'];
                 $order->save();
             }
+
+            // Save the cart data in the order_products tables
+
+            $order_product = new Order_Product();
+
+            $order_product->user_id  = Auth::id();
+            $order_product->order_id = $order_id;
+            $order_product->amount   = $cart_total_price;
+            $order_product->total_product_qty=Session::get('cart')->totalQty;
+            $order_product->save();
 
             Session::forget('cart');
             return redirect('/');

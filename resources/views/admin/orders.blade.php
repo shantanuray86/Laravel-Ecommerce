@@ -5,8 +5,8 @@
 
 @section('content')
 <div class="container">
-  <h2>Striped Rows</h2>
-  <p>The .table-striped class adds zebra-stripes to a table:</p>
+  <h2>All Orders</h2>
+
 
   @if(session('status')) 
   <div class="alert alert-danger text-center" role="alert">
@@ -17,8 +17,10 @@
     <thead>
       <tr>
         <th>Order ID</th>
+        <th>Products</th>
         <th>User ID</th>
-        <!-- <th>Products</th> -->
+        <th>Total No. of Items</th>
+        <th>Total Amount</th>
 
       </tr>
     </thead>
@@ -26,9 +28,14 @@
     @foreach($orders as $order)
       <tr>
         <td>{{$order->order_id}}</td>
+        <td>
+          @foreach($order->getproductfromordermodelinfo as $pro)
+            <p>{{$pro->getproductinfo->title}} Qty:{{$pro->product_qty}}</p>
+          @endforeach
+        </td>
         <td>{{$order->getuserinfo->name}}</td>
-        <!-- <td></td> -->
-        
+        <td>{{$order->total_product_qty}}</td>
+        <td>{{$order->amount}}</td>        
       </tr>
     @endforeach
       

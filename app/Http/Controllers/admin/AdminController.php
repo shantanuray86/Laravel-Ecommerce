@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Order;
+use App\Order_Product;
 use URL;
 
 class AdminController extends Controller
@@ -121,7 +122,7 @@ class AdminController extends Controller
     // Display All Orders
     public function allOrders()
     {
-        $orders = Order::groupBy('order_id')->get();;
+        $orders = Order_Product::all();
         return view('admin\orders',compact('orders'));
     }
 }
