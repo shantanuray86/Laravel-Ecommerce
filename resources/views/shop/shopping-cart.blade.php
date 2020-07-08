@@ -8,6 +8,7 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<ul class="list-group">
+		@if(Session::has('cart'))    	
 			@foreach($products as $product)
 			<li class="list-group-item">
 				<span class="badge">{{ $product['qty']}}</span>
@@ -22,17 +23,26 @@
 				</div>
 			</li>
 			@endforeach
+		@else
+		<p>Your Cart is empty</p>
+		@endif
 		</ul>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<strong>Total: {{ $totalPrice}}</strong>
+		<strong>Total: {{Session::has('cart')? $totalPrice : "" }}</strong>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
+		@if(Session::has('cart') && Auth::id())
 		<a type="button" class="btn btn-success" href="{{route('checkout')}}">Checkout</a>
+		@elseif(Session::has('cart') && !Auth::id())
+		<a type="button" class="btn btn-primary" href="{{route('login')}}">Please Login First</a>
+		@else
+		<a type="button" class="btn btn-primary" href="{{route('home')}}">Select a product first</a>
+		@endif		
 	</div>
 </div>
 @endsection

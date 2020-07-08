@@ -106,6 +106,9 @@ class ProductController extends Controller
                 $order->save();
             }
 
+            Session::forget('cart');
+            return redirect('/');
+
 
         }catch(Exception $e){
             //dd($e);

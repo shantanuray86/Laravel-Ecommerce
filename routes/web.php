@@ -19,7 +19,7 @@
 Route::get('/home', function(){
 	return redirect("/");
 });
-//Route::get('/home', 'ProductController@index')->name('home');
+//Route::get('/home', 'ProductController@getCart')->name('home');
 
 Route::get('/userLogout', 'Auth\LoginController@userLogout')->name('userLogout');
 
