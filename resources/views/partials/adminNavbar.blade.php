@@ -4,10 +4,11 @@
       <a class="navbar-brand" href="#">WebSiteName</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="{{url('/admin/addproduct')}}">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
+      <!-- <li class="active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li> -->
+      <li><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
+      <li><a href="{{url('/admin/addproduct')}}">Add Product</a></li>
+      <li><a href="{{url('/admin/products')}}">All Products</a></li>
+      <li><a href="{{url('/admin/allOrders')}}">All Orders</a></li>
     </ul>
   </div>
 </nav>

@@ -51,7 +51,7 @@ Route::get('/admin/logout', 'Admin\AdminLoginController@adminLogout')->name('adm
 Route::post('/admin/login/submit', 'Admin\AdminloginController@login')->name('admin.login.submit');
 
 // Load the dashboard page
-Route::get('/admin/dashbaord', 'admin\AdminController@dashboard')->name('admin.dashboard');
+Route::get('/admin/dashboard', 'admin\AdminController@dashboard')->name('admin.dashboard');
 
 // Load the add product page
 Route::get('/admin/addproduct', 'admin\AdminController@addproduct')->name('addproduct');
