@@ -26,6 +26,8 @@
                         @if(Auth::id())
                         <li role="separator" class="divider"></li>
                         <li><a href="{{route('userLogout')}}">Logout</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{route('allmyorders')}}">All My Orders</a></li>
                         @endif
                     </ul>
                 </li>

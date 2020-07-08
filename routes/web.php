@@ -32,13 +32,18 @@ Route::any('/getReduceByOne/{id}', 'ProductController@getReduceByOne')->name('ge
 
 // Remove an item from the cart.
 Route::any('/getRemoveItem/{id}', 'ProductController@getRemoveItem')->name('getRemoveItem');
+
 // Only Logged in users can enter 
 Route::group(['middleware' => ['auth']], function () {
-    // Remove an item from the cart.
+
+    // Load the checkout page.
 	Route::get('/checkout', 'ProductController@checkout')->name('checkout');
 
-	// Remove an item from the cart.
+	// Post the payment.
 	Route::post('/postcheckout', 'ProductController@postcheckout')->name('postcheckout');
+
+	// Get all the orders of the logged in user.
+	Route::get('/allmyorders', 'UserController@getallmyorders')->name('allmyorders');
 });
 
 
