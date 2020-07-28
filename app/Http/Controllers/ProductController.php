@@ -82,7 +82,7 @@ class ProductController extends Controller
         $order_id = time();
         try{
 
-            Stripe::setApiKey('sk_test_9rug65UKvOF1rmRUQLJ7uk9g00IaLuAz0');
+            Stripe::setApiKey('your Stripe key');
             $charge = Charge::create([
                 'amount'=>'1000',
                 'currency'=>'INR',
