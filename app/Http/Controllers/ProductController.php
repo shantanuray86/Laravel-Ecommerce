@@ -82,7 +82,12 @@ class ProductController extends Controller
         $order_id = time();
         try{
 
-            Stripe::setApiKey('your Stripe key');
+        	$oldCart = Session::get('cart');
+            $cart = new Cart($oldCart);
+            $products = $cart->items;
+            $cart_total_price =$cart->totalPrice;
+
+            Stripe::setApiKey('Your_Stripe_Key');
             $charge = Charge::create([
                 'amount'=>$cart->totalPrice*100,
                 'currency'=>'INR',
@@ -91,10 +96,7 @@ class ProductController extends Controller
                 'receipt_email'=>'example@example.com'
             ]);
 
-            $oldCart = Session::get('cart');
-            $cart = new Cart($oldCart);
-            $products = $cart->items;
-            $cart_total_price =$cart->totalPrice;
+            
 
             foreach($products as $product)
             {
