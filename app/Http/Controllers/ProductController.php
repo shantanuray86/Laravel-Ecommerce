@@ -75,7 +75,7 @@ class ProductController extends Controller
     {
         //dd($request);
         try{
-            Stripe::setApiKey('sk_test_9rug65UKvOF1rmRUQLJ7uk9g00IaLuAz02');
+            Stripe::setApiKey('Your Stripe Key');
             $charge = Charge::create([
                 'amount'=> '1000',
                 'currency'=>'INR',
