@@ -84,7 +84,7 @@ class ProductController extends Controller
 
             Stripe::setApiKey('your Stripe key');
             $charge = Charge::create([
-                'amount'=>'1000',
+                'amount'=>$cart->totalPrice*100,
                 'currency'=>'INR',
                 'source'=>$request->stripeToken,
                 'description'=>$order_id,
